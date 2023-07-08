@@ -1,42 +1,61 @@
 // Write your helper functions here!
 require('isomorphic-fetch');
 
+
+
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
    // Here is the HTML formatting for our mission target div.
-   /*
-                <h2>Mission Destination</h2>
+               ` <h2>Mission Destination</h2>
                 <ol>
-                    <li>Name: </li>
-                    <li>Diameter: </li>
+                    <li>name: ${name}</li>
+                    <li>Diameter:${diameter} </li>
                     <li>Star: ${star}</li>
-                    <li>Distance from Earth: </li>
-                    <li>Number of Moons: </li>
+                    <li>Distance from Earth:${distance} </li>
+                    <li>Number of Moons:${moons} </li>
                 </ol>
-                <img src="">
-   */
+                <img src="${img}">`
 }
 
-function validateInput(testInput) {
-    testInput.value = String
- if (testInput.value = String){
-  return "Is a string"
- }else if(testInput.value != String){
-    return "Is not a string"
- }else if(testInput.value === null){
-    return "Empty"
- }
-    if ("Is a string"){
-        alert("Must be a number!")
-    }else if("is not a string"){
-        alert("Must be a word!")
-    }else("Empty"){
-        alert("Must have a value")
-    }
- }
 
 
-function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
-   
+
+function validateInput(testInput){
+    let newVar = Number(testInput)
+          if (testInput === " "){
+             return "Empty"
+              }else if(isNaN(newVar)){
+               return "Not A Number"
+                }else if(!isNaN(testInput)){
+                 return "Is A Number"
+                }
+            } 
+
+ 
+
+
+
+function formSubmission(document, launchForm, pilot, copilot, fuelLevel, cargoLevel) {
+    if(validateInput(pilot) === "Empty" || validateInput(copilot) === "Empty" || validateInput(fuelLevel) === "Empty" || validateInput(cargoLevel) === "Empty"){
+        alert("All fields are required!")
+    }else if(validateInput(pilot) === "Is A Number" || validateInput(copilot) === "Is A Number" || validateInput(fuelLevel) === "Not A Number" || validateInput(cargoLevel) === "Is A Number"){                    
+            alert("Must be a valid input!")
+                }else{ 
+                     if (fuelStatus.value < 10000){
+                    launchStatus.innerHTML = 'Shuttle not ready for Launch'
+                    launchStatus.color = 'red'
+                    faultyItems.style.visibility = visible
+                    faultyItems.innerHTML = "There is not enough fuel for this journey!"
+               }else if(cargoLevel.value > 10000){
+                cargoLevel.innerHTML = "Shuttle not ready for launch"
+                cargoLevel.style.color = 'red'
+                cargoLevel.style.visibility = visible
+               } else{
+                cargoLevel.innerHTML = "Shuttle is ready for launch"
+                cargoLevel.style.color = 'green'
+               }
+
+               
+}
 }
 
 async function myFetch() {
@@ -55,6 +74,7 @@ async function myFetch() {
 function pickPlanet(planets) {
     return planets(Math.floor(Math.random()*planets.length))
 }
+
 
 module.exports.addDestinationInfo = addDestinationInfo;
 module.exports.validateInput = validateInput;

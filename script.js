@@ -1,43 +1,9 @@
 
 
-const { myFetch, pickPlanet } = require("./scriptHelper");
+let { myFetch, pickPlanet, addDestinationInfo } = require("./scriptHelper.js");
 
 window.addEventListener("load", function() {
-    let pilotStatus = document.getElementById("pilotStatus")
-    let copilotStatus = document.getElementById("copilotStatus")
-    let fuelStatus = document.getElementById('fuelStatus')
-    let faultyItems = documment.getElementById('faultyItems')
-    let launchStatus = document.getElementById('launchStatus')
-    let cargoStatus = document.getElementById('cargoStatus')
-    let launchForm = document.getElementById('launchForm')
-//    let div = `pilotStatus.innerHTML = pilotStatus.value + 'ready'
-//    copilotStatus.innerHTML = copilotStatus.value + 'ready' `
-
-    launchForm.addEventListener("submit", (event)=>{
-         if(pilotStatus.value || copilotStatus.value || cargoStatus.value || fuelStatus.value === ''){
-            alert("All fields are required!")
-            event.preventDefault()
-        }
-        })
-    })
-
-
-   if (fuelStatus.value < 10000){
-        launchStatus.innerHTML = 'Shuttle not ready for Launch'
-        launchStatus.color = 'red'
-        faultyItems.style.visibility = visible
-        faultyItems.innerHTML = "There is not enough fuel for this journey!"
-   }
-   if(cargoStatus.value > 10000){
-    cargoStatus.innerHTML = "Shuttle not ready for launch"
-    cargoStatus.color = 'red'
-    cargoStatus.style.visibility = visible
-   } else{
-    cargoStatus.innerHTML = "Shuttle is ready for launch"
-    cargoStatus.color = 'green'
-   }
-   
-   let listedPlanets;
+    let listedPlanets;
    // Set listedPlanetsResponse equal to the value returned by calling myFetch()
    let listedPlanetsResponse = myFetch()
    listedPlanetsResponse.then(function (result) {
@@ -46,8 +12,35 @@ window.addEventListener("load", function() {
    }).then(function () {
        console.log(listedPlanets);
        // Below this comment call the appropriate helper functions to pick a planet fom the list of planets and add that information to your destination.
-     pickPlanet(listedPlanets)
+     let chosenPlanet = pickPlanet(listedPlanets)
+     addDestinationInfo(document, chosenPlanet.name, chosenPlanet.diameter, chosenPlanet.star, chosenPlanet.distance, chosenPlanet.moons, chosenPlanet.imageUrl)
    })
+
+
+    // let pilotStatus = document.getElementById("pilotStatus")
+    // let copilotStatus = document.getElementById("copilotStatus")
+    // let fuelStatus = document.getElementById('fuelStatus')
+    let faultyItems = documment.getElementById('faultyItems')
+    // let launchStatus = document.getElementById('launchStatus')
+    // let cargoStatus = document.getElementById('cargoStatus')
+    let launchForm = document.getElementById('launchForm')
+
+    faultyItems.style.visibility = "hidden"
+    launchForm.addEventListener("submit", (event)=>{
+        event.preventDefault()
+        let pilotName = document.querySelector("input[name=pilotStatus]")
+        let copilotName = document.querySelector("input[name=copilotStatus]")
+        let fuelLevel = document.querySelector("input[name=fuelStatus]")
+        let cargoLevel = document.querySelector("input[name=cargoLevel]")
+
+        let pilot = pilotName.value
+        let copilot = copilotName.value
+        let fuel = fuelLevel.value
+        let cargo = cargoLevel.value
+
+        formSubmission(document, launchForm, pilot, copilot, fuel, cargo)
+})
+
 
    
 });
