@@ -5,10 +5,10 @@ let pilotName = document.querySelector("input[name=pilotName]")
 let pilot = pilotName.value
 let copilotName = document.querySelector("input[name=copilotName]")
 let copilot = copilotName.value
-let fuelInput = document.querySelector("input[name=fuelLevel]")
-let fuelLevel = fuelInput.value
+let fuelLevel = document.querySelector("input[name=fuelLevel]")
+let fuel = fuelLevel.value
 let cargoInput = document.querySelector("input[name=cargoMass]")
-let cargoLevel = cargoInput.value
+let cargo = cargoInput.value
 
 
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
@@ -45,7 +45,7 @@ function validateInput(testInput) {
 
 
 
-function formSubmission(document, list, pilotName, copilotName, fuelLevel, cargoLevel) {   
+function formSubmission(document, list, pilotName, copilotName, fuelLevel, cargoInput) {   
     let pilotStatus = document.getElementById("pilotStatus")
     let copilotStatus = document.getElementById("copilotStatus")
     let fuelStatus = document.getElementById('fuelStatus')
@@ -54,23 +54,23 @@ function formSubmission(document, list, pilotName, copilotName, fuelLevel, cargo
 
     
 
-    if (validateInput(pilotName) === "Empty" || validateInput(copilotName) === "Empty" || validateInput(fuelLevel) === "Empty" || validateInput(cargoLevel) === "Empty") {
+    if (validateInput(pilotName) === "Empty" || validateInput(copilotName) === "Empty" || validateInput(fuelLevel) === "Empty" || validateInput(cargoInput) === "Empty") {
         alert("All fields are required!")
-    } else if (validateInput(pilotName) === "Is A Number" || validateInput(copilotName) === "Is A Number" || validateInput(fuelLevel) === "Not A Number" || validateInput(cargoLevel) === "Not A Number") {
+    } else if (validateInput(pilotName) === "Is A Number" || validateInput(copilotName) === "Is A Number" || validateInput(fuelLevel) === "Not A Number" || validateInput(cargoInput) === "Not A Number") {
         alert("Must be a valid input!")
     } else {
         list.style.visibility = "visible";
         pilotStatus.innerHTML = `${pilotName.value} ready for launch!`;
         copilotStatus.innerHTML = `${copilotName.value} ready for launch!`;
-        if (fuelLevel < 10000 && cargoLevel <= 10000) {
+        if (fuelLevel < 10000 && cargoInput <= 10000) {
             launchStatus.innerHTML = 'Shuttle not ready for Launch'
             launchStatus.style.color = 'red'
             fuelStatus.innerHTML = "There is not enough fuel for this journey!"
-        } else if (fuelLevel >= 10000 && cargoLevel > 10000) {
+        } else if (fuelLevel >= 10000 && cargoInput > 10000) {
             launchStatus.innerHTML = 'Shuttle not ready for Launch'
             launchStatus.style.color = 'red'
             cargoStatus.innerHTML = "There is too much mass to take off!"
-        } else if (fuelLevel < 10000 && cargoLevel > 10000) {
+        } else if (fuelLevel < 10000 && cargoInput > 10000) {
             launchStatus.innerHTML = 'Shuttle not ready for Launch'
             launchStatus.style.color = 'red'
             fuelStatus.innerHTML = "There is not enough fuel for this journey!"
