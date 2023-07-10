@@ -3,12 +3,15 @@ require('isomorphic-fetch');
 
 let pilotName = document.querySelector("input[name=pilotName]")
 let pilot = pilotName.value
+
 let copilotName = document.querySelector("input[name=copilotName]")
 let copilot = copilotName.value
-let fuelLevel = document.querySelector("input[name=fuelLevel]")
-let fuel = fuelLevel.value
+
+let fuelInput = document.querySelector("input[name=fuelLevel]")
+let fuelLevel = fuelInput.value
+
 let cargoInput = document.querySelector("input[name=cargoMass]")
-let cargo = cargoInput.value
+let cargoLevel = cargoInput.value
 
 
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
@@ -32,7 +35,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
 function validateInput(testInput) {
     let newVar = Number(testInput)
-    if (testInput === " ") {
+    if (testInput === "") {
         return "Empty"
     } else if (isNaN(newVar)) {
         return "Not A Number"
@@ -45,32 +48,32 @@ function validateInput(testInput) {
 
 
 
-function formSubmission(document, list, pilotName, copilotName, fuelLevel, cargoInput) {   
-    let pilotStatus = document.getElementById("pilotStatus")
-    let copilotStatus = document.getElementById("copilotStatus")
-    let fuelStatus = document.getElementById('fuelStatus')
-    let launchStatus = document.getElementById('launchStatus')
-    let cargoStatus = document.getElementById('cargoStatus')
+function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel)  {  
+    // let pilotStatus = document.getElementById("pilotStatus")
+    // let copilotStatus = document.getElementById("copilotStatus")
+    // let fuelStatus = document.getElementById('fuelStatus')
+    // let launchStatus = document.getElementById('launchStatus')
+    // let cargoStatus = document.getElementById('cargoStatus')
 
     
 
-    if (validateInput(pilotName) === "Empty" || validateInput(copilotName) === "Empty" || validateInput(fuelLevel) === "Empty" || validateInput(cargoInput) === "Empty") {
+    if (validateInput(pilot) === "Empty" || validateInput(copilot) === "Empty" || validateInput(fuelLevel) === "Empty" || validateInput(cargoLevel) === "Empty") {
         alert("All fields are required!")
-    } else if (validateInput(pilotName) === "Is A Number" || validateInput(copilotName) === "Is A Number" || validateInput(fuelLevel) === "Not A Number" || validateInput(cargoInput) === "Not A Number") {
+    } else if (validateInput(pilot) === "Is A Number" || validateInput(copilot) === "Is A Number" || validateInput(fuelLevel) === "Not A Number" || validateInput(cargoLevel) === "Not A Number") {
         alert("Must be a valid input!")
     } else {
         list.style.visibility = "visible";
-        pilotStatus.innerHTML = `${pilotName.value} ready for launch!`;
-        copilotStatus.innerHTML = `${copilotName.value} ready for launch!`;
-        if (fuelLevel < 10000 && cargoInput <= 10000) {
+        pilotStatus.innerHTML = `${pilot.value} ready for launch!`;
+        copilotStatus.innerHTML = `${copilot.value} ready for launch!`;
+        if (fuelLevel < 10000 && cargoLevel <= 10000) {
             launchStatus.innerHTML = 'Shuttle not ready for Launch'
             launchStatus.style.color = 'red'
             fuelStatus.innerHTML = "There is not enough fuel for this journey!"
-        } else if (fuelLevel >= 10000 && cargoInput > 10000) {
+        } else if (fuelLevel >= 10000 && cargoLevel > 10000) {
             launchStatus.innerHTML = 'Shuttle not ready for Launch'
             launchStatus.style.color = 'red'
             cargoStatus.innerHTML = "There is too much mass to take off!"
-        } else if (fuelLevel < 10000 && cargoInput > 10000) {
+        } else if (fuelLevel < 10000 && cargoLevel > 10000) {
             launchStatus.innerHTML = 'Shuttle not ready for Launch'
             launchStatus.style.color = 'red'
             fuelStatus.innerHTML = "There is not enough fuel for this journey!"
@@ -84,8 +87,8 @@ function formSubmission(document, list, pilotName, copilotName, fuelLevel, cargo
 
 
     }
-
 }
+
 async function myFetch() {
     let planetsReturned;
 
@@ -104,8 +107,7 @@ async function myFetch() {
 
 
 function pickPlanet(planets) {
-    let index = Math.floor(Math.random() * planets.length)
-    return planets[index]
+     return planets[Math.floor(Math.random() * planets.length)]
 }
 
 

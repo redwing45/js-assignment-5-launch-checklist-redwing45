@@ -27,7 +27,7 @@ window.addEventListener("load", function() {
         let cargoLevel = cargoInput.value
 
 
-        formSubmission(document, list, pilotName, copilotName, fuelLevel, cargoLevel)
+        formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel)
 })
 
 
