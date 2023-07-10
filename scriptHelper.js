@@ -3,13 +3,10 @@ require('isomorphic-fetch');
 
 let pilotName = document.querySelector("input[name=pilotName]")
 let pilot = pilotName.value
-
 let copilotName = document.querySelector("input[name=copilotName]")
 let copilot = copilotName.value
-
 let fuelInput = document.querySelector("input[name=fuelLevel]")
 let fuelLevel = fuelInput.value
-
 let cargoInput = document.querySelector("input[name=cargoMass]")
 let cargoLevel = cargoInput.value
 
@@ -63,8 +60,8 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel)  
         alert("Must be a valid input!")
     } else {
         list.style.visibility = "visible";
-        pilotStatus.innerHTML = `${pilot.value} ready for launch!`;
-        copilotStatus.innerHTML = `${copilot.value} ready for launch!`;
+        pilotStatus.innerHTML = `${pilot} ready for launch!`;
+        copilotStatus.innerHTML = `${copilot} ready for launch!`;
         if (fuelLevel < 10000 && cargoLevel <= 10000) {
             launchStatus.innerHTML = 'Shuttle not ready for Launch'
             launchStatus.style.color = 'red'
